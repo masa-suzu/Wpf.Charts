@@ -4,32 +4,45 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wpf.Charts"
+        xmlns:oxy="http://oxyplot.org/wpf"
         mc:Ignorable="d"
         Title="MainWindow" 
-        SizeToContent="WidthAndHeight"
         ResizeMode="{Binding ResizeMode}" Closed="Window_Closed"
-        MaxHeight="{Binding Height, BindsDirectlyToSource=True}" 
-        MaxWidth="{Binding Width, BindsDirectlyToSource=True}" 
-        MinHeight="{Binding MinHeight, BindsDirectlyToSource=True}" 
-        MinWidth="{Binding MinWidth, BindsDirectlyToSource=True}" 
-        Height="{Binding Height, BindsDirectlyToSource=True}"
-        Width="{Binding Width, BindsDirectlyToSource=True}">
+        MaxHeight="{Binding MaxHeight,BindsDirectlyToSource=True}"
+        MaxWidth="{Binding MaxWidth,BindsDirectlyToSource=True}"
+        Height="{Binding Height, BindsDirectlyToSource=True, Mode=OneWay, Source={StaticResource sett}}"
+        Width="{Binding Width, BindsDirectlyToSource=True, Mode=OneWay, Source={StaticResource sett}}" 
+        MinWidth="{Binding MinWidth, Mode=OneWay, Source={StaticResource sett}}" 
+        MinHeight="{Binding MinHeight, Mode=OneWay, Source={StaticResource sett}}">
 
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <local:MainWindowState></local:MainWindowState>
-    </Window.DataContext>
+    </Window.DataContext>-->
     <Grid Margin="0,0,0,0">
         <TabControl Margin="0,0,0,0">
             <TabItem Header="Charts">
                 <Grid Background="#FFE5E5E5" Margin="0,0,0,0">
+                    <oxy:Plot Title="Time Series">
+                        <oxy:Plot.Series>
+                            <oxy:LineSeries ItemsSource="{Binding DataList1.DataList}" Title="線グラフ1"/>
+                            <oxy:LineSeries ItemsSource="{Binding DataList2.DataList}" Title="線グラフ2"/>
+                            <oxy:LineSeries ItemsSource="{Binding DataList3.DataList}" Title="線グラフ3"/>
+                            <oxy:LineSeries ItemsSource="{Binding DataList4.DataList}" Title="線グラフ4"/>
+                            <oxy:LineSeries ItemsSource="{Binding DataList5.DataList}" Title="線グラフ5" Color="Black"/>
+                        </oxy:Plot.Series>
+                        <oxy:Plot.Axes>
+                            <oxy:LinearAxis Position="Left" Title="値"/>
+                            <oxy:LinearAxis Position="Bottom" Title="時刻[s]"/>
+                        </oxy:Plot.Axes>
+                    </oxy:Plot>
                 </Grid>
             </TabItem>
             <TabItem Header="Config">
                 <Grid Background="#FFE5E5E5" Margin="0,0,0,0">
                     <TextBox Height="23" Margin="82,10,10,0" TextWrapping="Wrap" 
-                             Text="{Binding Height, BindsDirectlyToSource=True}" VerticalAlignment="Top"/>
+                             Text="{Binding MaxHeight, BindsDirectlyToSource=True}" VerticalAlignment="Top"/>
                     <TextBox Height="23" Margin="82,39,10,0" TextWrapping="Wrap" 
-                             Text="{Binding Width, BindsDirectlyToSource=True}" VerticalAlignment="Top"/>
+                             Text="{Binding MaxWidth, BindsDirectlyToSource=True}" VerticalAlignment="Top"/>
                     <Label Content="Max Height" HorizontalAlignment="Left" Margin="5,6,0,0" VerticalAlignment="Top"/>
                     <Label Content="Max Width" HorizontalAlignment="Left" Margin="5,35,0,0" VerticalAlignment="Top"/>
                 </Grid>

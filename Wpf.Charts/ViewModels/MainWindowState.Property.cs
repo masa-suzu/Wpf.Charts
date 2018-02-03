@@ -6,32 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Xml.Serialization;
 
 namespace Wpf.Charts
 {
     public partial class MainWindowState :INotifyPropertyChanged
     { 
-        public MainWindowState(int height,int width, ResizeMode resizeMode)
-        {
-            _Height = height;
-            _Width = width; 
-            _ResizeMode = resizeMode;
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public int MinHeight
-        {
-            get { return 600; }
-            set { }
-        }
-        public int MinWidth
-        {
-            get { return 400; }
-            set { }
-        }
-
-        public int Height
+        public double MaxHeight
         {
             get { return _Height; }
             set
@@ -39,15 +22,14 @@ namespace Wpf.Charts
                 if (Equals(_Height, value)) return;
 
                 //if (value >= 600) { value = 600; }
-                if (value <= MinHeight) { value = MinHeight; }
+                if (value <= Properties.Settings.Default.MinHeight)
+                { value = Properties.Settings.Default.MinHeight; }
 
                 _Height = value;
-                PropertyChanged.Raise(() => Height);
+                PropertyChanged.Raise(() => MaxHeight);
             }
         }
-        private int _Height;
-
-        public int Width
+        public double MaxWidth
         {
             get { return _Width; }
             set
@@ -55,13 +37,15 @@ namespace Wpf.Charts
                 if (Equals(_Width, value)) return;
 
                 //if (value >= 300) { value = 300; }
-                if (value <= MinWidth) { value = MinWidth; }
+                if (value <= Properties.Settings.Default.MinWidth)
+                { value = Properties.Settings.Default.MinWidth; }
 
                 _Width = value;
-                PropertyChanged.Raise(() => Width);
+                PropertyChanged.Raise(() => MaxWidth);
             }
         }
-        private int _Width;
+        private double _Height;
+        private double _Width;
 
         public ResizeMode ResizeMode
         {
@@ -75,5 +59,17 @@ namespace Wpf.Charts
             }
         }
         private ResizeMode _ResizeMode;
+
+        [XmlIgnore]
+        public Models.TimeSeries DataList1 { get; }
+        [XmlIgnore]
+        public Models.TimeSeries DataList2 { get; }
+        [XmlIgnore]
+        public Models.TimeSeries DataList3 { get; }
+        [XmlIgnore]
+        public Models.TimeSeries DataList4 { get; }
+        [XmlIgnore]
+        public Models.TimeSeries DataList5 { get; }
+
     }
 }

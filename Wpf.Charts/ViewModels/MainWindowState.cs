@@ -16,10 +16,20 @@ namespace Wpf.Charts
         {
             m_base = new ViewModels.ViewModelBase<MainWindowState>();
 
-            _Height = MinHeight;
-            _Width = MinWidth;
-            _ResizeMode = ResizeMode.CanResizeWithGrip;
+            DataList1 = new Models.TimeSeries(1);
+            DataList2 = new Models.TimeSeries(2);
+            DataList3 = new Models.TimeSeries(3);
+            DataList4 = new Models.TimeSeries(4);
+            DataList5 = new Models.TimeSeries(5);
         }
+
+        public MainWindowState(double maxHeight, double maxWidth,ResizeMode resizeMode)
+        {
+            MaxHeight = maxHeight;
+            MaxWidth = maxWidth;
+            ResizeMode = resizeMode;
+        }
+
         private ViewModels.ViewModelBase<MainWindowState> m_base;
 
         #region IDisposable Support

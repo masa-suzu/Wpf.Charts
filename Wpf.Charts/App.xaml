@@ -2,8 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Wpf.Charts"
+             xmlns:prop="clr-namespace:Wpf.Charts.Properties"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <prop:Settings x:Key="sett" />
     </Application.Resources>
 </Application>
