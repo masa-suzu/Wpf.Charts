@@ -16,11 +16,8 @@ namespace Wpf.Charts
         {
             m_base = new ViewModels.ViewModelBase<MainWindowState>();
 
-            DataList1 = new Models.TimeSeries(1);
-            DataList2 = new Models.TimeSeries(2);
-            DataList3 = new Models.TimeSeries(3);
-            DataList4 = new Models.TimeSeries(4);
-            DataList5 = new Models.TimeSeries(5);
+            m_TimeSeriesCollection = new List<Models.TimeSeries>();
+            Series = new LiveCharts.SeriesCollection();
         }
 
         public MainWindowState(double maxHeight, double maxWidth,ResizeMode resizeMode)

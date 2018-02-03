@@ -1,4 +1,7 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,13 +27,33 @@ namespace Wpf.Charts
         public MainWindow()
         {
             InitializeComponent();
+
             var state = new ViewModels.ViewModelBase<MainWindowState>().Restore();
+
+            #region Add TimeSeries
+            {
+                state.AddTimeSeries(new Models.TimeSeries(1));
+                state.AddTimeSeries(new Models.TimeSeries(2));
+                state.AddTimeSeries(new Models.TimeSeries(3));
+                state.AddTimeSeries(new Models.TimeSeries(4));
+                state.AddTimeSeries(new Models.TimeSeries(5));
+            }
+            #endregion
+
+            #region Set Timer
+            {
+                m_Timer = new DispatcherTimer(DispatcherPriority.Normal);
+                m_Timer.Interval = new TimeSpan(0, 0, 1);
+
+                m_Timer.Tick += state.UpdateTimeSeriesCollection;
+                m_Timer.Start();
+            }
+            #endregion
+
             DataContext = state;
-
-            Width = Properties.Settings.Default.Width;
-            Height = Properties.Settings.Default.Height;
-
         }
+
+        private DispatcherTimer m_Timer;
         private void Window_Closed(object sender, EventArgs e)
         {
             if (WindowState != WindowState.Minimized)
@@ -43,7 +66,8 @@ namespace Wpf.Charts
                 Properties.Settings.Default.Width = this.Width;
                 Properties.Settings.Default.Height = this.Height;
             }
-
+            Properties.Settings.Default.Top = Top;
+            Properties.Settings.Default.Left = Left;
             Properties.Settings.Default.Save();
 
             var state = DataContext as IDisposable;

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Xml.Serialization;
+using Wpf.Charts.Models;
 
 namespace Wpf.Charts
 {
@@ -61,15 +64,24 @@ namespace Wpf.Charts
         private ResizeMode _ResizeMode;
 
         [XmlIgnore]
-        public Models.TimeSeries DataList1 { get; }
-        [XmlIgnore]
-        public Models.TimeSeries DataList2 { get; }
-        [XmlIgnore]
-        public Models.TimeSeries DataList3 { get; }
-        [XmlIgnore]
-        public Models.TimeSeries DataList4 { get; }
-        [XmlIgnore]
-        public Models.TimeSeries DataList5 { get; }
+        public SeriesCollection Series { get; set; }
+        private List<TimeSeries> m_TimeSeriesCollection { get; set; }
 
+        public void AddTimeSeries(TimeSeries series)
+        {
+            Series.Add(new LineSeries
+            {
+                Values = series
+            });
+            m_TimeSeriesCollection.Add(series);
+        }
+
+        public void UpdateTimeSeriesCollection(object sender, EventArgs e)
+        {
+            foreach (var item in m_TimeSeriesCollection)
+            {
+                item.Update();
+            }
+        }
     }
 }

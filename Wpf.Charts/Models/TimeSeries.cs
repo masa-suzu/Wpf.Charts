@@ -5,36 +5,40 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OxyPlot;
+using System.Windows.Data;
+using LiveCharts;
+using LiveCharts.Defaults;
 
 namespace Wpf.Charts.Models
 {
-    public class TimeSeries : INotifyPropertyChanged
+    
+    public class TimeSeries: ChartValues<ObservableValue>
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public TimeSeries(int seed)
         {
-            DataList = CreatePoints(seed);
-        }
-        public ObservableCollection<DataPoint> DataList
-        {
-            get { return m_DataList; }
-            set
-            {
-                if (Equals(m_DataList, value)) return;
+            m_rand = new Random(seed);
 
-                m_DataList = value;
-                PropertyChanged.Raise(() => DataList);
-            }
+            this.AddRange(CreatePoints());
         }
-        private ObservableCollection<DataPoint> m_DataList;
-        private ObservableCollection<DataPoint> CreatePoints(int seed)
+        public void Update()
         {
-            var rand = new Random(seed);
-            var points = Enumerable.Range(0, 11).Select(
-                    index => new DataPoint(index, rand.Next(100)));
-            return new ObservableCollection<DataPoint>(points);
+            this.Add(new ObservableValue(m_rand.NextDouble()));
+            this.RemoveAt(0);
         }
+
+        private ChartValues<ObservableValue> CreatePoints()
+        {
+            var points = Enumerable.Range(0, 20).Select(
+                    index => m_rand.Next(100));
+            var d = new ChartValues<ObservableValue>();
+            foreach (var item in points)
+            {
+                d.Add(new ObservableValue(item));
+            }
+            return d;
+        }
+
+        private Random m_rand;
+
     }
 }

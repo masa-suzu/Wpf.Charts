@@ -5,36 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wpf.Charts"
         xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" 
         ResizeMode="{Binding ResizeMode}" Closed="Window_Closed"
         MaxHeight="{Binding MaxHeight,BindsDirectlyToSource=True}"
         MaxWidth="{Binding MaxWidth,BindsDirectlyToSource=True}"
-        Height="{Binding Height, BindsDirectlyToSource=True, Mode=OneWay, Source={StaticResource sett}}"
-        Width="{Binding Width, BindsDirectlyToSource=True, Mode=OneWay, Source={StaticResource sett}}" 
         MinWidth="{Binding MinWidth, Mode=OneWay, Source={StaticResource sett}}" 
-        MinHeight="{Binding MinHeight, Mode=OneWay, Source={StaticResource sett}}">
-
-    <!--<Window.DataContext>
-        <local:MainWindowState></local:MainWindowState>
-    </Window.DataContext>-->
+        MinHeight="{Binding MinHeight, Mode=OneWay, Source={StaticResource sett}}"
+        Height="{Binding Height, BindsDirectlyToSource=True, Mode=OneWay, Source={StaticResource sett}}"
+        Width="{Binding Width, BindsDirectlyToSource=True, Mode=OneWay, Source={StaticResource sett}}" Left="{Binding Left, Source={StaticResource sett}}" Top="{Binding Top, Source={StaticResource sett}}">
+    
     <Grid Margin="0,0,0,0">
+        <Grid.Resources>
+            <Style TargetType="lvc:LineSeries">
+                <Setter Property="StrokeThickness" Value="2"></Setter>
+                <Setter Property="Fill" Value="Transparent"></Setter>
+                <Setter Property="PointGeometrySize" Value="0"></Setter>
+                <Setter Property="LineSmoothness" Value="0"></Setter>
+            </Style>
+        </Grid.Resources>
         <TabControl Margin="0,0,0,0">
             <TabItem Header="Charts">
                 <Grid Background="#FFE5E5E5" Margin="0,0,0,0">
-                    <oxy:Plot Title="Time Series">
-                        <oxy:Plot.Series>
-                            <oxy:LineSeries ItemsSource="{Binding DataList1.DataList}" Title="線グラフ1"/>
-                            <oxy:LineSeries ItemsSource="{Binding DataList2.DataList}" Title="線グラフ2"/>
-                            <oxy:LineSeries ItemsSource="{Binding DataList3.DataList}" Title="線グラフ3"/>
-                            <oxy:LineSeries ItemsSource="{Binding DataList4.DataList}" Title="線グラフ4"/>
-                            <oxy:LineSeries ItemsSource="{Binding DataList5.DataList}" Title="線グラフ5" Color="Black"/>
-                        </oxy:Plot.Series>
-                        <oxy:Plot.Axes>
-                            <oxy:LinearAxis Position="Left" Title="値"/>
-                            <oxy:LinearAxis Position="Bottom" Title="時刻[s]"/>
-                        </oxy:Plot.Axes>
-                    </oxy:Plot>
+                    <lvc:CartesianChart Series="{Binding Series}" Hoverable="False" >
+                    </lvc:CartesianChart>
                 </Grid>
             </TabItem>
             <TabItem Header="Config">
