@@ -23,6 +23,14 @@ namespace Wpf.Charts
         public MainWindow()
         {
             InitializeComponent();
+
+            this.DataContext = new ViewModels.ViewModelBase<MainWindowState>().Restore();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            var state = DataContext as IDisposable;
+            state.Dispose();
         }
     }
 }

@@ -54,6 +54,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\MainWindowState.cs" />
+    <Compile Include="ViewModels\MainWindowState.Property.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="XamlExtension.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
