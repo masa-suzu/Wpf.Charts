@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,13 +13,6 @@ namespace Wpf.Charts
     [Serializable]
     public partial class MainWindowState :IDisposable
     {
-        public MainWindowState(double maxHeight, double maxWidth,ResizeMode resizeMode)
-        {
-            MaxHeight = maxHeight;
-            MaxWidth = maxWidth;
-            ResizeMode = resizeMode;
-        }
-
         private ViewModels.ViewModelBase<MainWindowState> m_base;
 
         #region IDisposable Support

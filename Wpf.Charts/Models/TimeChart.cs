@@ -2,6 +2,7 @@
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace Wpf.Charts.Models
             var brush = new SolidColorBrush(color);
             Series = new SeriesCollection();
             AxesY = new AxesCollection();
+            AllColors = new ObservableCollection<Color>();
 
             Series.Add(new LineSeries
             {
@@ -32,12 +34,17 @@ namespace Wpf.Charts.Models
             });
 
             Color = color;
-
         }
         public SeriesCollection Series { get; set; }
         public AxesCollection AxesY { get; set; }
 
         public TimeSeries Source{ get;set;}
+
+        public ObservableCollection<Color> AllColors
+        {
+            get;set;
+        }
+
         public Color Color
         {
             get { return m_color; }

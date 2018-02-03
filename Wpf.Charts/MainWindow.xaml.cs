@@ -32,7 +32,16 @@ namespace Wpf.Charts
 
             #region Add TimeSeries
             {
-                state.Chart = new Models.TimeChart(new Models.TimeSeries(1, "1"), Colors.Red);
+                state.Chart = new Models.TimeChart(new Models.TimeSeries(1, "1"), state.DefaltColor);
+            }
+            #endregion
+
+            #region Set UI Controls
+            {
+                Width = Properties.Settings.Default.Width;
+                Height = Properties.Settings.Default.Height;
+
+                ComboBox.ItemsSource = typeof(Colors).GetProperties();
             }
             #endregion
 

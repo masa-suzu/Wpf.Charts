@@ -22,6 +22,17 @@ namespace Wpf.Charts
             m_base = new ViewModels.ViewModelBase<MainWindowState>();
         }
 
+        public MainWindowState(
+            double maxHeight, 
+            double maxWidth, 
+            ResizeMode resizeMode,
+            Color color)
+        {
+            MaxHeight = maxHeight;
+            MaxWidth = maxWidth;
+            ResizeMode = resizeMode;
+            DefaltColor = color;
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public double MaxHeight
@@ -70,8 +81,30 @@ namespace Wpf.Charts
         }
         private ResizeMode _ResizeMode;
 
+        public Color DefaltColor
+        {
+            get
+            {
+                if(m_Chart == null) { return m_Color; }
+
+                else
+                {
+                    return m_Chart.Color;
+                }
+            }
+            set { m_Color = value; }
+        }
+        private Color m_Color;
+
         [XmlIgnore]
-        public TimeChart Chart{get;set;}
+        public TimeChart Chart {
+            get { return m_Chart; }
+            set
+            {
+                m_Chart = value;
+            }
+        }
+        private TimeChart m_Chart;
 
         public void UpdateTimeSeriesCollection(object sender, EventArgs e)
         {

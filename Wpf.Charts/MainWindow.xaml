@@ -3,6 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Wpf.Charts"
+        xmlns:vm="clr-namespace:Wpf.Charts.ViewModels"
+        
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
@@ -14,7 +16,9 @@
         MinHeight="{Binding MinHeight, Mode=OneWay, Source={StaticResource sett}}"
         Height="{Binding Height, BindsDirectlyToSource=True, Mode=OneWay, Source={StaticResource sett}}"
         Width="{Binding Width, BindsDirectlyToSource=True, Mode=OneWay, Source={StaticResource sett}}" Left="{Binding Left, Source={StaticResource sett}}" Top="{Binding Top, Source={StaticResource sett}}">
-
+    <Window.Resources>
+        <vm:MyColorConverter x:Key="MyColorConverter"/>
+    </Window.Resources>
     <Grid Margin="0,0,0,0">
         <Grid.Resources>
             <Style TargetType="lvc:LineSeries">
@@ -34,12 +38,24 @@
             </TabItem>
             <TabItem Header="Config">
                 <Grid Background="#FFE5E5E5" Margin="0,0,0,0">
-                    <TextBox Height="23" Margin="82,10,10,0" TextWrapping="Wrap" 
+                    <TextBox Height="23" Margin="110,10,10,0" TextWrapping="Wrap" 
                              Text="{Binding MaxHeight, BindsDirectlyToSource=True}" VerticalAlignment="Top"/>
-                    <TextBox Height="23" Margin="82,39,10,0" TextWrapping="Wrap" 
+                    <TextBox Height="23" Margin="110,39,10,0" TextWrapping="Wrap" 
                              Text="{Binding MaxWidth, BindsDirectlyToSource=True}" VerticalAlignment="Top"/>
-                    <Label Content="Max Height" HorizontalAlignment="Left" Margin="5,6,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Max Width" HorizontalAlignment="Left" Margin="5,35,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Max Height" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Max Width" HorizontalAlignment="Left" Margin="5,38,0,0" VerticalAlignment="Top"/>
+                    <ComboBox Name="ComboBox" Margin="110,67,10,0" VerticalAlignment="Top"
+                              SelectedValue="{Binding Chart.Color, BindsDirectlyToSource=True, Converter={StaticResource MyColorConverter}}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Fill="{Binding Name}" Width="16" Height="16" Margin="0,2,5,2" />
+                                    <TextBlock Text="{Binding Name}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Label Content="Series1 Color" HorizontalAlignment="Left" Margin="5,65,0,0" VerticalAlignment="Top"/>
                     <!--<WrapPanel Margin="82,67,10,10.5">
                         <ItemsControl ItemsSource="{Binding Colors}">
                                 <ItemsControl.ItemTemplate>
@@ -59,9 +75,10 @@
                                     </ComboBox>
                                         </DataTemplate>
                                 </ItemsControl.ItemTemplate>-->
-                        <!--</ItemsControl>
+                    <!--</ItemsControl>
                     </WrapPanel>-->
                 </Grid>
+
             </TabItem>
         </TabControl>
     </Grid>
