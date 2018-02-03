@@ -2,6 +2,7 @@
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,17 @@ using System.Windows;
 using System.Windows.Media;
 using System.Xml.Serialization;
 using Wpf.Charts.Models;
+using Wpf.Charts.ViewModels;
 
 namespace Wpf.Charts
 {
-    public partial class MainWindowState :INotifyPropertyChanged
-    { 
+    public partial class MainWindowState : INotifyPropertyChanged
+    {
+        public MainWindowState()
+        {
+            m_base = new ViewModels.ViewModelBase<MainWindowState>();
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public double MaxHeight
@@ -64,33 +71,18 @@ namespace Wpf.Charts
         private ResizeMode _ResizeMode;
 
         [XmlIgnore]
-        public SeriesCollection Series { get; set; }
-        [XmlIgnore]
-        public AxesCollection AxesY { get; set; }
-
-        private List<TimeSeries> m_TimeSeriesCollection { get; set; }
-
-        public void AddTimeSeries(TimeSeries series, Brush brush)
-        {
-            Series.Add(new LineSeries
-            {
-                Values = series,
-                ScalesYAt = m_TimeSeriesCollection.Count,
-                Stroke = brush
-            });
-            m_TimeSeriesCollection.Add(series);
-            AxesY.Add(new Axis()
-            {
-                Title = series.Label,
-                Foreground = brush
-            });
-        }
+        public TimeChart Chart{get;set;}
 
         public void UpdateTimeSeriesCollection(object sender, EventArgs e)
         {
-            foreach (var item in m_TimeSeriesCollection)
+            Chart.Source.Update();
+            if (Chart.Color == Colors.Red)
             {
-                item.Update();
+                Chart.Color = Colors.Blue;
+            }
+            else if (Chart.Color == Colors.Blue)
+            {
+                Chart.Color = Colors.Red;
             }
         }
     }

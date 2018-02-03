@@ -12,15 +12,6 @@ namespace Wpf.Charts
     [Serializable]
     public partial class MainWindowState :IDisposable
     {
-        public MainWindowState()
-        {
-            m_base = new ViewModels.ViewModelBase<MainWindowState>();
-
-            m_TimeSeriesCollection = new List<Models.TimeSeries>();
-            Series = new LiveCharts.SeriesCollection();
-            AxesY = new LiveCharts.Wpf.AxesCollection();
-        }
-
         public MainWindowState(double maxHeight, double maxWidth,ResizeMode resizeMode)
         {
             MaxHeight = maxHeight;
@@ -40,7 +31,7 @@ namespace Wpf.Charts
                 if (disposing)
                 {
                     // TODO: マネージ状態を破棄します (マネージ オブジェクト)。
-                    m_base.Store(this);
+                    m_base.Store((MainWindowState)this);
                 }
 
                 // TODO: アンマネージ リソース (アンマネージ オブジェクト) を解放し、下のファイナライザーをオーバーライドします。

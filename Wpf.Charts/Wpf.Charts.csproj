@@ -69,6 +69,7 @@
     <Compile Include="Models\TimeSeries.cs" />
     <Compile Include="ViewModels\MainWindowState.cs" />
     <Compile Include="ViewModels\MainWindowState.Property.cs" />
+    <Compile Include="Models\TimeChart.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="XamlExtension.cs" />
     <Page Include="MainWindow.xaml">
