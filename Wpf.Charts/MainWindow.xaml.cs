@@ -32,11 +32,11 @@ namespace Wpf.Charts
 
             #region Add TimeSeries
             {
-                state.AddTimeSeries(new Models.TimeSeries(1));
-                state.AddTimeSeries(new Models.TimeSeries(2));
-                state.AddTimeSeries(new Models.TimeSeries(3));
-                state.AddTimeSeries(new Models.TimeSeries(4));
-                state.AddTimeSeries(new Models.TimeSeries(5));
+                state.AddTimeSeries(new Models.TimeSeries(1,"1"),Brushes.Red);
+                state.AddTimeSeries(new Models.TimeSeries(2,"2"),Brushes.Green);
+                state.AddTimeSeries(new Models.TimeSeries(3,"3"),Brushes.Blue);
+                state.AddTimeSeries(new Models.TimeSeries(4,"4"),Brushes.Orange);
+                state.AddTimeSeries(new Models.TimeSeries(5,"5"),Brushes.Black);
             }
             #endregion
 

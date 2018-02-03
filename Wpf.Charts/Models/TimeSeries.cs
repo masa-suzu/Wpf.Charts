@@ -14,12 +14,14 @@ namespace Wpf.Charts.Models
     
     public class TimeSeries: ChartValues<ObservableValue>
     {
-        public TimeSeries(int seed)
+        public TimeSeries(int seed,string label)
         {
             m_rand = new Random(seed);
+            Label = label;
 
             this.AddRange(CreatePoints());
         }
+        public string Label { get; set; }
         public void Update()
         {
             this.Add(new ObservableValue(m_rand.NextDouble()));

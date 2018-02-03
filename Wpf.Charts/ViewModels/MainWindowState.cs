@@ -18,6 +18,7 @@ namespace Wpf.Charts
 
             m_TimeSeriesCollection = new List<Models.TimeSeries>();
             Series = new LiveCharts.SeriesCollection();
+            AxesY = new LiveCharts.Wpf.AxesCollection();
         }
 
         public MainWindowState(double maxHeight, double maxWidth,ResizeMode resizeMode)

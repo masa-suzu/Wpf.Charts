@@ -3,8 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Wpf.Charts"
-        xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" 
@@ -28,7 +26,7 @@
         <TabControl Margin="0,0,0,0">
             <TabItem Header="Charts">
                 <Grid Background="#FFE5E5E5" Margin="0,0,0,0">
-                    <lvc:CartesianChart Series="{Binding Series}" Hoverable="False" >
+                    <lvc:CartesianChart Series="{Binding Series}" AxisY="{Binding AxesY}">
                     </lvc:CartesianChart>
                 </Grid>
             </TabItem>

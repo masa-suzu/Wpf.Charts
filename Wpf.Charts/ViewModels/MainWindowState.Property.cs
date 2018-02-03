@@ -65,15 +65,25 @@ namespace Wpf.Charts
 
         [XmlIgnore]
         public SeriesCollection Series { get; set; }
+        [XmlIgnore]
+        public AxesCollection AxesY { get; set; }
+
         private List<TimeSeries> m_TimeSeriesCollection { get; set; }
 
-        public void AddTimeSeries(TimeSeries series)
+        public void AddTimeSeries(TimeSeries series, Brush brush)
         {
             Series.Add(new LineSeries
             {
-                Values = series
+                Values = series,
+                ScalesYAt = m_TimeSeriesCollection.Count,
+                Stroke = brush
             });
             m_TimeSeriesCollection.Add(series);
+            AxesY.Add(new Axis()
+            {
+                Title = series.Label,
+                Foreground = brush
+            });
         }
 
         public void UpdateTimeSeriesCollection(object sender, EventArgs e)
